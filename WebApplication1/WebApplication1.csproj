@@ -43,11 +43,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Azure.AppService.ApiApps.Service, Version=0.9.16.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.AppService.ApiApps.Service.0.9.16\lib\net45\Microsoft.Azure.AppService.ApiApps.Service.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.0.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -57,6 +78,14 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -64,6 +93,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -89,19 +122,132 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\SVG\Main Btns\eye.svg" />
+    <Content Include="Content\SVG\Main Btns\info.svg" />
+    <Content Include="Content\SVG\Main Btns\login.svg" />
+    <Content Include="Content\SVG\Main Btns\logo.svg" />
+    <Content Include="Content\SVG\Main Btns\map.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="ParticlesContent\css\index.css" />
+    <Content Include="ParticlesContent\css\reset.css" />
+    <Content Include="ParticlesContent\images\hand-pull.png" />
+    <Content Include="ParticlesContent\images\hand-push.png" />
+    <Content Include="ParticlesContent\images\mouse-pull.png" />
+    <Content Include="ParticlesContent\images\mouse-push.png" />
+    <Content Include="ParticlesContent\index.html" />
+    <Content Include="ParticlesContent\js\lib\Clock.js" />
+    <Content Include="ParticlesContent\js\lib\CopyShader.js" />
+    <Content Include="ParticlesContent\js\lib\dat.gui.js" />
+    <Content Include="ParticlesContent\js\lib\dat.gui.min.js" />
+    <Content Include="ParticlesContent\js\lib\leap-0.6.4.js" />
+    <Content Include="ParticlesContent\js\lib\leap-plugins-0.1.10.js" />
+    <Content Include="ParticlesContent\js\lib\mousetrap.js" />
+    <Content Include="ParticlesContent\js\lib\mousetrap.min.js" />
+    <Content Include="ParticlesContent\js\lib\OBJLoader.js" />
+    <Content Include="ParticlesContent\js\lib\OrbitControls.js" />
+    <Content Include="ParticlesContent\js\lib\Stats.js" />
+    <Content Include="ParticlesContent\js\lib\stats.min.js" />
+    <Content Include="ParticlesContent\js\lib\three.min.js" />
+    <Content Include="ParticlesContent\js\lib\three69.js" />
+    <Content Include="ParticlesContent\js\lib\three70.js" />
+    <Content Include="ParticlesContent\js\lib\TrackballControls.js" />
+    <Content Include="ParticlesContent\js\src\App.js" />
+    <Content Include="ParticlesContent\js\src\App2.js" />
+    <Content Include="ParticlesContent\js\src\index.js" />
+    <Content Include="ParticlesContent\js\src\LeapManager.js" />
+    <Content Include="ParticlesContent\js\src\Mouse.js" />
+    <Content Include="ParticlesContent\js\src\ParticleEngine.js" />
+    <Content Include="ParticlesContent\js\src\ParticleSimulation.js" />
+    <Content Include="ParticlesContent\js\src\RenderContext.js" />
+    <Content Include="ParticlesContent\js\src\ShaderPass.js" />
+    <Content Include="ParticlesContent\js\src\shaders\ParticleShader.js" />
+    <Content Include="ParticlesContent\js\src\shaders\SimDebugShader.js" />
+    <Content Include="ParticlesContent\js\src\shaders\SimInitShader.js" />
+    <Content Include="ParticlesContent\js\src\shaders\SimShader.js" />
+    <Content Include="ParticlesContent\js\src\shaders\UVMapShader.js" />
+    <Content Include="ParticlesContent\js\src\SimulationRenderer.js" />
+    <Content Include="ParticlesContent\js\src\UpdateLoop.js" />
+    <Content Include="ParticlesContent\js\src\Utils.js" />
+    <Content Include="ParticlesContent\js\src\UVMapAnimator.js" />
+    <Content Include="ParticlesContent\js\src\UVMapper.js" />
+    <Content Include="ParticlesContent\leaptest.html" />
+    <Content Include="ParticlesContent\uvtest.html" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ParticlesContent\models\animals.json" />
+    <Content Include="ParticlesContent\models\bear.json" />
+    <Content Include="ParticlesContent\models\bison.json" />
+    <Content Include="ParticlesContent\models\chowchow.json" />
+    <Content Include="ParticlesContent\models\cow.json" />
+    <Content Include="ParticlesContent\models\deer.json" />
+    <Content Include="ParticlesContent\models\eagle.json" />
+    <Content Include="ParticlesContent\models\elk.json" />
+    <Content Include="ParticlesContent\models\flamingo.json" />
+    <Content Include="ParticlesContent\models\fox.json" />
+    <Content Include="ParticlesContent\models\horse.json" />
+    <Content Include="ParticlesContent\models\moose.json" />
+    <Content Include="ParticlesContent\models\owl.json" />
+    <Content Include="ParticlesContent\models\panther.json" />
+    <Content Include="ParticlesContent\models\parrot.json" />
+    <Content Include="ParticlesContent\models\rabbit.json" />
+    <Content Include="ParticlesContent\models\raccoon.json" />
+    <Content Include="ParticlesContent\models\raven.json" />
+    <Content Include="ParticlesContent\models\retriever.json" />
+    <Content Include="ParticlesContent\models\stork.json" />
+    <Content Include="ParticlesContent\models\wolf.json" />
+    <Content Include="ParticlesContent\shaders\Basic.vs.glsl" />
+    <Content Include="ParticlesContent\shaders\BasicParticleShader.fs.glsl" />
+    <Content Include="ParticlesContent\shaders\BasicParticleShader.vs.glsl" />
+    <Content Include="ParticlesContent\shaders\BasicSimShader.fs.glsl" />
+    <Content Include="ParticlesContent\shaders\chunks\Constants.glsl" />
+    <Content Include="ParticlesContent\shaders\chunks\NoiseFuncs.glsl" />
+    <Content Include="ParticlesContent\shaders\chunks\Rand.glsl" />
+    <Content Include="ParticlesContent\shaders\chunks\SimBasicShapes.glsl" />
+    <Content Include="ParticlesContent\shaders\chunks\SimGalaxy.glsl" />
+    <Content Include="ParticlesContent\shaders\chunks\SimInputPos.glsl" />
+    <Content Include="ParticlesContent\shaders\chunks\SimRoseGalaxy.glsl" />
+    <Content Include="ParticlesContent\shaders\chunks\SimTextureTarget.glsl" />
+    <Content Include="ParticlesContent\shaders\ParticleShader.fs.glsl" />
+    <Content Include="ParticlesContent\shaders\ParticleShader.vs.glsl" />
+    <Content Include="ParticlesContent\shaders\SimInitShader.fs.glsl" />
+    <Content Include="ParticlesContent\shaders\SimShader.fs.glsl" />
+    <Content Include="ParticlesContent\shaders\UVMapShader.fs.glsl" />
+    <Content Include="ParticlesContent\shaders\UVMapShader.vs.glsl" />
+    <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
+    <Content Include="apiapp.json" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -111,7 +257,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
