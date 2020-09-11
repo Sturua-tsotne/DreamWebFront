@@ -1,0 +1,147 @@
+﻿@model WebApplication1.Models.Dream
+
+@using WebApplication1.Models;
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+
+
+@{
+    DreamsEntities _db = new DreamsEntities();
+    var categories = _db.Categories.ToList();
+    var languages = _db.Languages.ToList();
+}
+
+<main>
+    <div class="wrapper-dream-body">
+        <div id="Dream-title">
+            <input type="text" value="@Model.Title" placeholder="Name" name="Name" class="forms" id="titleForEdit" /><br>
+<textarea  id="descriptionForEdit" placeholder="text" autofocus></textarea>
+        </div><!--end of dream title-->
+        <div id="Dream-details">
+            <select id="langForEdit" class="language">
+                @foreach (var lang in languages)
+                {
+                    if (Model.Lang == lang.LangCode)
+                    {
+                        <option selected value="@lang.LangCode">@lang.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@lang.LangCode">@lang.Name</option>
+                    }
+
+                }
+            </select>
+            <input type="text" placeholder="Hashtag" name="Hashtag" class="forms opacity" onkeydown="myFunction(this,event)" style=" width:160px;" />
+            <input type="buttton" placeholder="City" name="City" class="forms dream-inputs opacity" style="cursor:pointer;" id="editmap" />
+            <input type="text" value="@Model.CreateDate.ToString("MM/dd/yyyy")" placeholder="Date" name="Date" class="forms dream-inputs unstyledDateInput opacity" onfocus="(this.type='date')" onblur="(this.type='text')" id="dateForEdit" />
+            <input type="buttton" name="Category" placeholder="Category" class="forms dream-inputs" id="category_select">
+        </div>
+        <div class="categories hide mr-t" id="category_tags">
+            @foreach (var cat in categories)
+            {
+                <div class="category">
+                    <img style="width:50px;" src="~/Content/images/dream-cards/@cat.Icon" class="category_icon">
+                    <div class="Category_text" data-cat-id="@cat.ID" id="cat-@cat.ID">
+                        <h5>@cat.Name</h5>
+                        <h6 class="hidden cat-Id">@cat.ID</h6>
+                    </div>
+                </div>
+            }
+
+            <div class="category_close">
+                <button class="close_btn" id="category_close">X</button>
+            </div>
+            <!-- <div class="category_plus">
+               <button class="plus_btn">+</button>
+             </div>
+             -->
+        </div>
+        <div class="showmaps mr-t hide" id="mapforedit">
+            <div class="maps" id="editmaps"></div>
+            <div class="map-close">
+                <button class="close_btn" id="editmap_close">X</button>
+            </div>
+        </div>
+        <!--end of dream details-->
+        <div class="dis-flex-between mr-t">
+            <div class="hashtags" id="myList">
+                @foreach (var tag in Model.DreamAndTags)
+                {
+                    <div class="tag">
+                        <a href="#" id="link_tag">@tag.Tag.Name</a>
+                        <div class="close">x</div>
+                    </div>
+                }
+            </div>
+            <div class="categories" id="category_tags">
+            </div>
+        </div>
+        
+		<div class="button_group mr-b text-right mr-t">
+			<p class="errormessage" id="editdreammess"></p>
+			<div style="margin-bottom:20px;">
+				<input type="checkbox" id="sectorForEdit"><span style="color:white;"> the dream is public </span><br>
+			</div>
+			<a href="/User/Dreams/"><button class="grad-border" id="bt_cancel">Cancel</button></a>
+			<button id="editdreams" class="grad-border" data-id="@Model.ID">Save</button>
+		</div>
+    </div><!--end of wrapper-->
+</main>
+<script src="~/Scripts/EditMap.js"></script>
+<script>
+
+    var public = "@Model.isPublic";
+
+    if (public === "True")
+    {
+        document.getElementById("sectorForEdit").checked = true;
+    }
+
+    var closeTag = $('.close');
+    $(closeTag).click(function () {
+        $(this).parent().remove();
+        });
+     $(document).ready(function () {
+            var html =`@Html.Raw(Model.Description.Trim())`;
+            //$('#descriptionForEdit').val(html);
+
+            CKEDITOR.replace('descriptionForEdit', {
+                uiColor: '#000000'
+            });
+            CKEDITOR.addCss(".cke_editable{background-color: black;  font-family: bnm; font-size: 18px;  color: white;}");
+            CKEDITOR.instances.descriptionForEdit.setData(html);  
+    });
+
+     
+
+      var pos = {
+        lat: @Model.Lat,
+        lng:@Model.Long,
+    };
+        sessionStorage.setItem("positions", pos);
+        var SelectedCategories = @Html.Raw(Json.Encode(ViewBag.cats));
+
+        var catId = [];
+        var ActiveCategory = [];
+        $('.Category_text').each(function (){
+            catId.push(parseInt($(this).attr('data-cat-id')))
+        });
+
+
+        for (var j = 0; j < SelectedCategories.length; j++){
+            for (var i = 0; i < catId.length; i++)
+            {
+            
+                if (catId[i] === SelectedCategories[j])
+                {
+                    $('#cat-' + catId[i]).prev().addClass('active')
+                }
+            }
+        }
+
+       
+        
+
+</script>

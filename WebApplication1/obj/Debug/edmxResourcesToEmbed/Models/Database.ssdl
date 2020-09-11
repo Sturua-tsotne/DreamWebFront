@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DreamsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Icon" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dream">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Long" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Lat" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="RealLat" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RealLong" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="isPublic" Type="bit" Nullable="false" />
+    <Property Name="Lang" Type="char" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="DreamAndCategory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DreamID" Type="int" Nullable="false" />
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DreamAndTag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DreamID" Type="int" Nullable="false" />
+    <Property Name="TagID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Languages">
+    <Key>
+      <PropertyRef Name="LangCode" />
+    </Key>
+    <Property Name="LangCode" Type="char" MaxLength="5" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Unconfirmed_Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="ConfirmationCode" Type="varchar" MaxLength="32" Nullable="false" />
+    <Property Name="CreteDate" Type="datetime" Nullable="false" />
+    <Property Name="Lang" Type="char" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="64" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Secret" Type="varchar" MaxLength="32" />
+    <Property Name="isFbUser" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="Lang" Type="char" MaxLength="5" />
+  </EntityType>
+  <Association Name="FK__Dream__Lang__2EDAF651">
+    <End Role="Languages" Type="Self.Languages" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Dream" Type="Self.Dream" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Languages">
+        <PropertyRef Name="LangCode" />
+      </Principal>
+      <Dependent Role="Dream">
+        <PropertyRef Name="Lang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Unconfirme__Lang__2FCF1A8A">
+    <End Role="Languages" Type="Self.Languages" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Unconfirmed_Users" Type="Self.Unconfirmed_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Languages">
+        <PropertyRef Name="LangCode" />
+      </Principal>
+      <Dependent Role="Unconfirmed_Users">
+        <PropertyRef Name="Lang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__Lang__2DE6D218">
+    <End Role="Languages" Type="Self.Languages" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Languages">
+        <PropertyRef Name="LangCode" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="Lang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Dream_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Dream" Type="Self.Dream" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Dream">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DreamAndCategory_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="DreamAndCategory" Type="Self.DreamAndCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DreamAndCategory">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DreamAndCategory_Dream">
+    <End Role="Dream" Type="Self.Dream" Multiplicity="1" />
+    <End Role="DreamAndCategory" Type="Self.DreamAndCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dream">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DreamAndCategory">
+        <PropertyRef Name="DreamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DreamAndTag_Dream">
+    <End Role="Dream" Type="Self.Dream" Multiplicity="1" />
+    <End Role="DreamAndTag" Type="Self.DreamAndTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dream">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DreamAndTag">
+        <PropertyRef Name="DreamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DreamAndTag_Tag">
+    <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+    <End Role="DreamAndTag" Type="Self.DreamAndTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DreamAndTag">
+        <PropertyRef Name="TagID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DreamsModelStoreContainer">
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Dream" EntityType="Self.Dream" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DreamAndCategory" EntityType="Self.DreamAndCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DreamAndTag" EntityType="Self.DreamAndTag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Unconfirmed_Users" EntityType="Self.Unconfirmed_Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Dream__Lang__2EDAF651" Association="Self.FK__Dream__Lang__2EDAF651">
+      <End Role="Languages" EntitySet="Languages" />
+      <End Role="Dream" EntitySet="Dream" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Unconfirme__Lang__2FCF1A8A" Association="Self.FK__Unconfirme__Lang__2FCF1A8A">
+      <End Role="Languages" EntitySet="Languages" />
+      <End Role="Unconfirmed_Users" EntitySet="Unconfirmed_Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__Lang__2DE6D218" Association="Self.FK__User__Lang__2DE6D218">
+      <End Role="Languages" EntitySet="Languages" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Dream_User" Association="Self.FK_Dream_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Dream" EntitySet="Dream" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DreamAndCategory_Category" Association="Self.FK_DreamAndCategory_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="DreamAndCategory" EntitySet="DreamAndCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DreamAndCategory_Dream" Association="Self.FK_DreamAndCategory_Dream">
+      <End Role="Dream" EntitySet="Dream" />
+      <End Role="DreamAndCategory" EntitySet="DreamAndCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DreamAndTag_Dream" Association="Self.FK_DreamAndTag_Dream">
+      <End Role="Dream" EntitySet="Dream" />
+      <End Role="DreamAndTag" EntitySet="DreamAndTag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DreamAndTag_Tag" Association="Self.FK_DreamAndTag_Tag">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="DreamAndTag" EntitySet="DreamAndTag" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

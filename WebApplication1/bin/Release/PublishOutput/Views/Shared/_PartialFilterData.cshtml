@@ -1,0 +1,71 @@
+﻿@model IEnumerable<WebApplication1.Models.DreamViewModel>
+<script src="~/Scripts/all.js"></script>
+<div class="my-dreams font-bnm ">
+	<div class="my-dreams-t">
+		<h1>Found @Model.Count() dream(s)</h1>
+	</div>
+
+	<div class="my-dreams-b" id="DreamsData">
+
+		@foreach (var item in Model)
+		{
+
+			<div class="mdb">
+
+				<div class="activeMDB">
+					@{
+				var title = @item.Title.ToString();
+				var description = @item.Description.ToString();
+					}
+
+
+					@if (title.Length > 6)
+					{
+						title = title.Substring(0, 6);
+
+						if (title.Substring(0, 6).Contains(" "))
+						{
+							title = title.Substring(0, title.LastIndexOf(' '));
+						}
+
+						title += "...";
+					}
+
+
+					@if (description.Length > 50)
+					{
+						description = description.Substring(0, 50);
+
+						if (description.Substring(0, 50).Contains(" "))
+						{
+							description = description.Substring(0, description.LastIndexOf(' '));
+						}
+
+						description += "...";
+					}
+
+
+
+
+					<h1>@title</h1>
+					<p>
+						@Html.Raw(@description)
+					</p>
+
+				</div>
+
+				<div class="hiddenMDB ">
+					<a href="@Url.Action("Details", "Dreams", new { id = @item.GenerateSlug() })"><span class="example-one" data-text="MORE DETAILS +">MORE DETAILS +</span></a>
+				</div>
+
+			</div>
+
+
+
+						}
+
+
+	</div>
+
+</div>
+

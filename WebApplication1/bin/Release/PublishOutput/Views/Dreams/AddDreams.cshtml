@@ -1,0 +1,88 @@
+﻿@using WebApplication1.Models;
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/Scripts/map.js"></script>
+<script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+
+@{ 
+    DreamsEntities _db = new DreamsEntities();
+    var categories = _db.Categories.ToList();
+    var languages = _db.Languages.ToList();
+}
+
+<main>
+    <div class="wrapper-dream-body">
+        <div id="Dream-title">
+            <input type="text" placeholder="Name" name="Name" class="forms" id="title" /><br>
+<textarea id="description" name="description" placeholder="text" autofocus></textarea>
+        </div><!--end of dream title-->
+        <div id="Dream-details">
+            <select id="lang" class="language">
+                @foreach (var lang in languages)
+                {
+                    if (ViewBag.userLang == lang.LangCode)
+                    {
+                        <option selected  value="@lang.LangCode">@lang.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@lang.LangCode">@lang.Name</option>
+                    }
+
+                }
+            </select>
+            <input type="text" placeholder="Hashtag" name="Hashtag" class="forms opacity" onkeydown="myFunction(this,event)" style=" width:160px;" />
+            @*<input type="buttton" placeholder="City" name="City" class="forms dream-inputs opacity" style="cursor:pointer;" id="addmap" />*@
+            <input type="text" placeholder="Date" name="Date" class="forms dream-inputs unstyledDateInput opacity" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+            <input type="buttton" name="Category" placeholder="Category" class="forms dream-inputs" id="category_select">
+        </div>
+        <div class="categories hide mr-t" id="category_tags">
+            @foreach (var cat in categories)
+            {
+                <div class="category">
+                    <img style="width:50px;" src="~/Content/images/dream-cards/@cat.Icon" class="category_icon">
+                    <div class="Category_text">
+                        <h5>@cat.Name</h5>
+                        <h6 class="hidden cat-Id">@cat.ID</h6>
+                    </div>
+                </div>
+            }
+         
+            <div class="category_close">
+                <button class="close_btn" id="category_close">X</button>
+            </div>
+            <!-- <div class="category_plus">
+               <button class="plus_btn">+</button>
+             </div>
+             -->
+        </div>
+        <div class="showmaps mr-t hide" id="mapforadd" >
+            <div class="maps" id="maps"></div>
+            <div class="map-close">
+                <button class="close_btn" id="addmap_close">X</button>
+            </div>
+        </div>
+        <!--end of dream details-->
+        <div class="dis-flex-between mr-t">
+            <div class="hashtags" id="myList"></div>
+            <div class="categories" id="category_tags">
+            </div>
+        </div>
+        
+		<div class="button_group mr-b text-right mr-t">
+			<p class="errormessage" id="dreammess"></p>
+			<div style="margin-bottom:20px;">
+				<input type="checkbox" id="sector" checked><span style="color:white;"> the dream is public </span><br>
+			</div>
+			<a href="/User/Dreams/"><button class="grad-border" id="bt_cancel">Cancel</button></a>
+			<button id="adddreams" class="grad-border">Save</button>
+		</div>
+    </div><!--end of wrapper-->
+</main>
+
+<script>
+    CKEDITOR.replace('description', {
+        uiColor:'#000000'
+    });
+    CKEDITOR.addCss(".cke_editable{background-color: black;  font-family: bnm; font-size: 18px;  color: white;}");
+</script>

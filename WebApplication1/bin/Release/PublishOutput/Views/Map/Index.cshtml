@@ -1,0 +1,101 @@
+﻿
+@{
+	ViewBag.Title = "Index";
+	ViewBag.map = "active";
+}
+
+
+<div id="map">
+
+</div>
+
+
+
+
+<script type="text/javascript">
+    var dayOrNight;
+    var map;
+    var date = new Date();
+    hour = date.getHours();
+    if (8 <= hour && hour <= 21) {
+        dayOrNight = [{ "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#444444" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#f2f2f2" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "saturation": -100 }, { "lightness": 45 }] }, { "featureType": "road.highway", "elementType": "all", "stylers": [{ "visibility": "simplified" }] }, { "featureType": "road.arterial", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#46bcec" }, { "visibility": "on" }] }];
+    }
+    else if (0 <= hour && hour <= 7 || 22 <= hour && hour <= 24) {
+        dayOrNight = [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#193341" }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#2c5a71" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "color": "#29768a" }, { "lightness": -37 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#406d80" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#406d80" }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#3e606f" }, { "weight": 2 }, { "gamma": 0.84 }] }, { "elementType": "labels.text.fill", "stylers": [{ "color": "#ffffff" }] }, { "featureType": "administrative", "elementType": "geometry", "stylers": [{ "weight": 0.6 }, { "color": "#1a3541" }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#2c5a71" }] }];
+    }
+            google.maps.event.addDomListener(window, 'load', init);
+
+            function init() {
+
+
+                var mapOptions = {
+                        center: { lat: 41.715138, lng: 44.827096 },
+                        zoom: 12,
+                        styles: dayOrNight
+                };
+
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+
+
+                        map.setCenter(pos);
+                    })
+                }
+
+
+                var mapElement = document.getElementById('map');
+
+
+                var map = new google.maps.Map(mapElement, mapOptions);
+
+
+            $.get("@Url.Action("GetAllLocation", "Map")", function (data, status) {
+                var marker = [];
+                var contentString = [];
+                var infowindow = [];
+                for (var i = 0; i < data.length; i++) {
+                    marker[i] = new google.maps.Marker({
+                        position: { lat: parseFloat(data[i].Lat), lng: parseFloat(data[i].Long) },
+                        map: map
+                    });
+
+
+
+                    var str = data[i].Description.substring(0, 50);
+                    str += "...";
+                    contentString[i] = '<div id="content">' +
+                        '<div id="siteNotice">' +
+                        '</div>' +
+                        '<h1 id="firstHeading" class="firstHeading"><a href="/Dreams/Details/' + data[i].slug + '">' + data[i].Title + '</a></h1 > ' +
+                        '<div id="bodyContent">' +
+                        '<p>' + str + '</p>' +
+                        '</div>' +
+                        '</div>';
+
+
+                    infowindow[i] = new google.maps.InfoWindow({
+                        content: contentString[i]
+                    });
+                    var markerValue = marker[i];
+                    google.maps.event.addListener(marker[i], 'mouseover', (function (markeValue, i) {
+                        return function () {
+                            infowindow[i].open(map, marker[i]);
+                        }
+                    })(marker[i], i));
+                    //google.maps.event.addListener(marker[i], 'mouseout', (function (markeValue, i) {
+                    //    return function () {
+                    //        infowindow[i].close();
+                    //    }
+                    //})(marker[i], i));
+                }
+            })
+
+            }
+
+
+</script>

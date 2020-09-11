@@ -1,0 +1,64 @@
+﻿@model WebApplication1.Models.Dream
+
+@{
+	ViewBag.Title = "Details";
+}
+<main>
+
+	<div class="wrapper-dream-body mr-b">
+		<div id="category_icon">
+			@foreach (var categories in Model.DreamAndCategories)
+			{
+				<a href="#">
+					<img src="~/Content/SVG/@categories.Category.Icon" alt="category icon" title="@categories.Category.Name">
+				</a>
+			}
+		</div><!--end of category icon-->
+
+		<div id="detail">
+
+			<h1>@Model.Title</h1>
+			<a href="@Url.Action("ShowDreams", "User", new { id = ViewBag.user.GenerateSlug() })"><span>@Model.User.UserName</span></a>
+
+			<div id="dream-body">
+				<p>
+					@Html.Raw(Model.Description)
+				</p>
+			</div>
+
+			<!--end of dream body-->
+			<p id="date">@Model.CreateDate.ToString("MM/dd/yyyy")</p>
+
+		</div>
+		<div class="dis-flex-between">
+			<div class="hashtags">
+				@foreach (var tag in Model.DreamAndTags)
+				{
+					<div class="tag">
+						<a href="#">@tag.Tag.Name</a>
+					</div>
+				}
+			</div>
+			<div class="button_group">
+				<button class="grad-border" id="mapForDetailsBtn">Map</button>
+			</div>
+		</div>
+		<div class="showmaps hide mr-t" id="mapForDetails">
+			<div class="maps" id="detailsmap"></div>
+			<div class="map-close">
+				<button class="close_btn" id="details_map_close_btn">X</button>
+			</div>
+		</div>
+	</div>
+	<!--end of wrapper-->
+</main>
+<script src="~/Scripts/dream.js"></script>
+<script src="~/Scripts/DetailsMap.js"></script>
+
+<script>
+    var pos = {
+        lat: @Model.Lat,
+        lng:@Model.Long,
+    };
+    sessionStorage.setItem("positions", pos);
+</script>

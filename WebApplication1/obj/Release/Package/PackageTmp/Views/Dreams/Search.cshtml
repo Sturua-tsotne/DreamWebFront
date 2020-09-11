@@ -1,0 +1,193 @@
+﻿@model IEnumerable<WebApplication1.Models.DreamViewModel>
+
+
+
+@{
+	ViewBag.Title = "Search";
+	ViewBag.search = "active";
+}
+
+
+@using WebApplication1.Models;
+	@{
+		DreamsEntities _db = new DreamsEntities();
+		var categories = _db.Categories.ToList();
+		var languages = _db.Languages.ToList();
+	}
+
+
+
+		<header>
+
+			<div class="wrapper search_nav">
+				<ul class="dis-flex-between">
+					<li id="icon_search">icon</li>
+					<li id="icon_tag">tags</li>
+					<li><a style="color: #FFFFFF; text-decoration: none;" href="/Map/Index">Map</a></li>
+					<li id="date">date</li>
+					<li id="searh_lang">languange</li>
+				</ul>
+				<div class="search_box">
+					<label>
+						<img src="~/Content/images/icon/search.png">
+					</label>
+					<input type="search" name="search" id="tag_search" autofocus>
+				</div>
+			</div>
+			<div class="hide search_types" id="icon" style="display: none;">
+				<div class="prev" style="opacity: 1;" onclick="slideLeft()">
+					<img class="search_img" src="~/Content/images/dream-cards/arrow.png">
+				</div>
+
+				<div class="wrapper ">
+					<ul class="slider-ul" id="once">
+						@foreach (var cat in categories)
+						{
+							<li tabindex="@cat.ID">
+								<img src="~/Content/images/dream-cards/@cat.Icon" class="category_icon search_cat_img">
+								<h5 class="category_title ">@cat.Name </h5>
+							</li>
+						}
+
+					</ul>
+				</div>
+
+				<div class="next" style=" opacity: 1;" onclick="slideRight()">
+					<img class="search_img"src="~/Content/images/dream-cards/arrow1.png">
+				</div>
+			</div>
+			<div class="search_t wrapper hide" id="tag" style="display: none;">
+				<input type="search" name="search" id="tag_inp" class="input_tag">
+			</div>
+
+			<div class="search_Language  hide" id="lang_i" style="display: none;">
+				<div class="l" onclick="onLeft2()">
+					<img class="search_img" src="~/Content/images/dream-cards/arrow.png">
+				</div>
+
+				<div class="wrapper ">
+					<ul class="slider-ul sul" id="lang">
+						@foreach (var lang in languages)
+
+						{
+							<li>
+								<h5 class="category_title opac">@lang.Name</h5>
+								<p style="display:none" class="lang-Id">@lang.LangCode</p>
+							</li>
+						}
+
+					</ul>
+				</div>
+
+				<div class="r" onclick="onRight2()">
+					<img class="search_img" src="~/Content/images/dream-cards/arrow1.png">
+				</div>
+
+			</div>
+			<div class="search_date hide" id="date_i" style="display: none;">
+
+				<div id="datepicker"></div>
+				<div id="datepicker2"></div>
+
+			</div>
+
+
+		</header>
+		<div class="wrapper hide menu_container" style="display: none;">
+			<div id="mid">
+				<div id="middle">
+					<div class="icons_container dis-flex-between-for-slider"></div>
+					<div class="tags_container dis-flex-between-for-slider" id="tags_list"></div>
+					<div class="location_container dis-flex-between-for-slider"></div>
+					<div class="date_container dis-flex-between-for-slider">
+						<div id="d_start"></div>
+						<div id="d_end"></div>
+					</div>
+					<div class="language_container dis-flex-between-for-slider"></div>
+					<div class="search_container dis-flex-between-for-slider"></div>
+				</div>
+			</div>
+			<div class="clear_all">
+				<span id="clear_all">Clear All</span>
+				<span id="search">search</span>
+			</div>
+		</div>
+		<main>
+
+			<div id="DreamsData">
+			<div class="my-dreams font-bnm ">
+				<div class="my-dreams-t">
+					<h1>Found @Model.Count() dream(s)</h1>
+				</div>
+
+				<div class="my-dreams-b"  >
+					
+					@foreach (var item in Model)
+					{
+
+						<div class="mdb">
+
+							<div class="activeMDB">
+								@{
+				var title = @item.Title.ToString();
+				var description = @item.Description.ToString();
+								}
+
+
+								@if (title.Length > 6)
+								{
+									title = title.Substring(0, 6);
+
+									if (title.Substring(0, 6).Contains(" "))
+									{
+										title = title.Substring(0, title.LastIndexOf(' '));
+									}
+
+									title += "...";
+								}
+
+
+								@if (description.Length > 50)
+								{
+									description = description.Substring(0, 50);
+
+									if (description.Substring(0, 50).Contains(" "))
+									{
+										description = description.Substring(0, description.LastIndexOf(' '));
+									}
+
+									description += "...";
+								}
+
+
+
+
+								<h1>@title</h1>
+								<p>
+									@Html.Raw(@description)
+								</p>
+
+							</div>
+
+							<div class="hiddenMDB ">
+								<a href="@Url.Action("Details", "Dreams", new { id = @item.GenerateSlug() })"><span class="example-one" data-text="MORE DETAILS +">MORE DETAILS +</span></a>
+							</div>
+
+						</div>
+
+
+
+									}
+
+
+				</div>
+
+			</div>
+				</div>
+
+			
+	</main>
+
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="~/Scripts/Search.js"></script>

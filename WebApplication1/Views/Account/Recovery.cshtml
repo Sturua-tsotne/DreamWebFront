@@ -1,0 +1,24 @@
+﻿
+@{
+	ViewBag.Title = "Recovery";
+}
+
+<div class="registration">
+	<a href="/Home/Index" style="cursor:pointer">
+		<button class="grad-border close-btn">
+			CLOSE
+			<div class="close-btn-snt"></div>
+		</button>
+	</a>
+	<div class="form">
+		<h1>Change Password</h1>
+		<input type="password" id="NewPass" name="NewPassword" placeholder="Password">
+		<input type="password" id="ConfNewPass" name="ConfirmNewPassword" placeholder="ConfirmPassword">
+		<p class="errormessage" id="RecoveryMess"></p>
+		<button type="submit" id="change" class="log-in">Change</button><br>
+	</div>
+
+</div>
+
+
+<script src="~/Scripts/account.js"></script>

@@ -1,0 +1,44 @@
+﻿@using WebApplication1.Models;
+
+
+
+
+@model  IList<Dream>
+
+
+@{
+	ViewBag.Title = "Dreams";
+}
+
+
+<div style="display:flex;justify-content:space-around;">
+
+	<div>
+		<h3 style="color:white;font-family:bnm;"> გამარჯობა @Session["User"]!</h3>
+	</div>
+
+</div>
+<div class="my-dreams font-bnm ">
+	@*<div class="my-dreams-t">
+			<h1>DREAMS</h1>
+		</div>*@
+
+	<div class="my-dreams-b infinite-scroll">
+		@Html.Partial("_UserDreams", (ViewBag.Dreams as Dictionary<int, Dream>))
+	</div>
+
+</div>
+
+
+
+
+<script src="~/Scripts/infiniteScroll.js"></script>
+<script type="text/javascript">
+
+    var moreRowsUrl = '@Url.RouteUrl("dreams")';
+    $(window).scroll(scrollHandler);
+</script>
+
+
+
+

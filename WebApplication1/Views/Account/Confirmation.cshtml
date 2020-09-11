@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Confirmation";
+    
+}
+
+
+<div class="message">
+    თქვენ წარმატებით გაიაქტიურეთ ანგარიში. გთხოვთ, გაიაროთ <a href="/Account/SignIn">ავტორიზაცია</a>
+</div>
+
+
+<script src="~/Scripts/account.js"></script>
+
+<script>
+    $(document).ready(function () {
+        function change() {
+            window.location.href = "/Account/SignIn";
+        }
+        setTimeout(change, 5000);
+    });
+</script>

@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Azure.AppService.ApiApps.Service, Version=0.9.16.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.AppService.ApiApps.Service.0.9.16\lib\net45\Microsoft.Azure.AppService.ApiApps.Service.dll</HintPath>
       <Private>True</Private>
@@ -52,9 +61,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.0.0\lib\net40\Swashbuckle.Core.dll</HintPath>
@@ -69,6 +77,8 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -122,8 +132,75 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\WebApplication1.dll" />
+    <Content Include="bin\WebApplication1.pdb" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\animation.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\images\1.png" />
+    <Content Include="Content\images\2.png" />
+    <Content Include="Content\images\3.png" />
+    <Content Include="Content\images\dream-cards\arrow.png" />
+    <Content Include="Content\images\dream-cards\arrow1.png" />
+    <Content Include="Content\images\dream-cards\bck-c.png" />
+    <Content Include="Content\images\dream-cards\bck-m.png" />
+    <Content Include="Content\images\dream-cards\bck-s.png" />
+    <Content Include="Content\images\dream-cards\bck.png" />
+    <Content Include="Content\images\dream-cards\dream_card.png" />
+    <Content Include="Content\images\dream-cards\x.png" />
+    <Content Include="Content\images\icon1.svg" />
+    <Content Include="Content\images\icon\download-b.png" />
+    <Content Include="Content\images\icon\download.png" />
+    <Content Include="Content\images\icon\fb.png" />
+    <Content Include="Content\images\icon\search.png" />
+    <Content Include="Content\images\logo\logo-c.png" />
+    <Content Include="Content\images\logo\logo.png" />
+    <Content Include="Content\images\nav\delete-cross.png" />
+    <Content Include="Content\images\nav\nav1-c.png" />
+    <Content Include="Content\images\nav\nav1.png" />
+    <Content Include="Content\images\nav\nav2-c.png" />
+    <Content Include="Content\images\nav\nav2.png" />
+    <Content Include="Content\images\nav\nav3-c.png" />
+    <Content Include="Content\images\nav\nav3.png" />
+    <Content Include="Content\images\nav\nav4-c.png" />
+    <Content Include="Content\images\nav\nav4.png" />
+    <Content Include="Content\SVG\action.svg" />
+    <Content Include="Content\SVG\adventure.svg" />
+    <Content Include="Content\SVG\animation.svg" />
+    <Content Include="Content\SVG\bck-c.png" />
+    <Content Include="Content\SVG\biography.svg" />
+    <Content Include="Content\SVG\comedy.svg" />
+    <Content Include="Content\SVG\crimeDetectiveThriller.svg" />
+    <Content Include="Content\SVG\criminal.svg" />
+    <Content Include="Content\SVG\documental.svg" />
+    <Content Include="Content\SVG\drama.svg" />
+    <Content Include="Content\SVG\erotic.svg" />
+    <Content Include="Content\SVG\fantasy.svg" />
+    <Content Include="Content\SVG\historical.svg" />
+    <Content Include="Content\SVG\horror.svg" />
+    <Content Include="Content\SVG\melancholic.svg" />
+    <Content Include="Content\SVG\musical.svg" />
+    <Content Include="Content\SVG\mystic.svg" />
+    <Content Include="Content\SVG\porn.svg" />
+    <Content Include="Content\SVG\PROFILEicon.svg" />
+    <Content Include="Content\SVG\realistic.svg" />
+    <Content Include="Content\SVG\romantic.svg" />
+    <Content Include="Content\SVG\scifi.svg" />
+    <Content Include="Content\SVG\theatrical.svg" />
+    <Content Include="Content\SVG\western.svg" />
+    <Content Include="Models\DataBase.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataBase.edmx</DependentUpon>
+      <LastGenOutput>DataBase.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DataBase.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataBase.edmx</DependentUpon>
+      <LastGenOutput>DataBase.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\account.js" />
+    <Content Include="Scripts\dream.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\SVG\Main Btns\eye.svg" />
     <Content Include="Content\SVG\Main Btns\info.svg" />
@@ -176,6 +253,7 @@
     <Content Include="ParticlesContent\js\src\UVMapper.js" />
     <Content Include="ParticlesContent\leaptest.html" />
     <Content Include="ParticlesContent\uvtest.html" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ParticlesContent\models\animals.json" />
@@ -219,10 +297,25 @@
     <Content Include="ParticlesContent\shaders\UVMapShader.vs.glsl" />
     <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
     <Content Include="apiapp.json" />
+    <Content Include="Content\fonts\bpg_nino_mtavruli_normal.ttf" />
+    <EntityDeploy Include="Models\DataBase.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataBase.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DataBase.edmx.diagram">
+      <DependentUpon>DataBase.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\DetailsMap.js" />
+    <Content Include="Scripts\EditMap.js" />
+    <Content Include="Scripts\infiniteScroll.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\map.js" />
+    <Content Include="Scripts\mapForUserDreams.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Search.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -230,11 +323,74 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DreamsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\LoginFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MailSender.cs" />
+    <Compile Include="Helpers\MD5Helper.cs" />
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataBase.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataBase.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataBase.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataBase.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataBase.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Dream.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DreamAndCategory.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DreamAndTag.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DreamCustom.cs" />
+    <Compile Include="Models\DreamViewModel.cs" />
+    <Compile Include="Models\Language.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\MapCustom.cs" />
+    <Compile Include="Models\Registration.cs" />
+    <Compile Include="Models\SeoFriendlyRoute.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tag.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Unconfirmed_Users.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>DataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserCustom.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\EmailValidators.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config">
@@ -248,6 +404,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Account\SignIn.cshtml" />
+    <Content Include="Views\Account\Registration.cshtml" />
+    <Content Include="Views\Dreams\Index.cshtml" />
+    <Content Include="Views\Map\Index.cshtml" />
+    <Content Include="Views\Shared\_Dreams.cshtml" />
+    <Content Include="Views\Account\Registered.cshtml" />
+    <Content Include="Views\Account\Confirmation.cshtml" />
+    <Content Include="Views\Account\Forgot.cshtml" />
+    <Content Include="Views\Account\Recovery.cshtml" />
+    <Content Include="Views\Dreams\Details.cshtml" />
+    <Content Include="Views\Dreams\AddDreams.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Dreams.cshtml" />
+    <Content Include="Views\Shared\_UserDreams.cshtml" />
+    <Content Include="Views\Dreams\Edit.cshtml" />
+    <Content Include="Views\User\ShowDreams.cshtml" />
+    <Content Include="Views\Dreams\Search.cshtml" />
+    <Content Include="Views\Shared\_PartialFilterData.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -257,7 +431,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Content\js\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

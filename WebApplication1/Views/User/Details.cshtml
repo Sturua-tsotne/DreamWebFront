@@ -1,0 +1,117 @@
+﻿@model WebApplication1.Models.Dream
+
+@{
+	ViewBag.Title = "Details";
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/Scripts/dream.js"></script>
+<main>
+
+	<div class="wrapper-dream-body mr-b">
+		<div id="category_icon">
+			@foreach (var categories in Model.DreamAndCategories)
+			{
+				<a href="#">
+					<img src="~/Content/SVG/@categories.Category.Icon" alt="category icon" title="@categories.Category.Name">
+				</a>
+			}
+		</div><!--end of category icon-->
+
+
+		<div id="detail">
+
+			<h1>@Model.Title</h1>
+			<span>@Model.User.UserName</span>
+
+			<div id="dream-body">
+				<p>
+					@Html.Raw(Model.Description)
+				</p>
+			</div>
+
+			<!--end of dream body-->
+			<p id="date">@Model.CreateDate.ToString("MM/dd/yyyy")</p>
+
+		</div>
+		<div class="dis-flex-between ">
+			<div class="hashtags">
+				@foreach (var tag in Model.DreamAndTags)
+				{
+					<div class="tag">
+						<a href="#">@tag.Tag.Name</a>
+					</div>
+				}
+			</div>
+			<div style="display:none;" id="dialog-confirm" title="სიზმრის წაშლა"
+                <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span><span  style="color:white; font-family:bnm;"> დარწმუნებული ხართ რომ გსურთ სიზმრის წაშლა?</span></p>
+            </div>
+			<div class="button_group">
+				<button class="grad-border userMapsBtn">Map</button>
+				<a href="/Dreams/Edit/@Model.ID"><button class="grad-border">Edit</button></a>
+				<button class="grad-border" id="del" data-id="@Model.ID">Delete</button>
+			</div>
+		</div>
+		<div class="showmaps hide mr-t" id="mapForUserDreams">
+			<div class="maps" id="userMaps"></div>
+			<div class="map-close">
+				<button class="close_btn" id="user_map_close_btn">X</button>
+			</div>
+		</div>
+	</div>
+	<!--end of wrapper-->
+</main>
+<script src="~/Scripts/mapForUserDreams.js"></script>
+<script>
+    var pos = {
+        lat: @Model.Lat,
+        lng:@Model.Long,
+    };
+    sessionStorage.setItem("positions", pos);
+
+    $(document).ready(function () {
+        $('#dialog-confirm').css("display", "block");
+        $(function () {
+            $("#dialog-confirm").dialog({
+                autoOpen: false,
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: {
+                    Delete: function () {
+                        var id = $('#del').attr('data-id');
+                        $.ajax({
+                            url: '/Dreams/Delete',
+                            method: 'POST',
+                            data: { 'Id': id },
+                            success: function (response) {
+                                window.location.href = '/User/Dreams';
+                            }
+
+                        });
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            $("#del").on("click", function (e) {
+                e.preventDefault();
+                $("#dialog-confirm").dialog("open");
+            });
+        });
+
+
+    });
+
+</script>
+
+<style>
+	.ui-dialog, .ui-dialog-titlebar, .ui-dialog-buttonpane {
+		color: white;
+		background-color: black;
+	}
+</style>

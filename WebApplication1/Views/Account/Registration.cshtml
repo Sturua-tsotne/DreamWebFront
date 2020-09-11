@@ -1,0 +1,29 @@
+﻿
+@{
+	ViewBag.Title = "Registration";
+	ViewBag.signin = "active";
+}
+
+
+<div class="registration">
+	<a href="/Home/Index" style="cursor:pointer">
+		<button class="grad-border close-btn">
+			CLOSE
+			<div class="close-btn-snt"></div>
+		</button>
+	</a>
+
+	<div class="form">
+		<h1>R E G I S T E R </h1>
+		<input type="text" name="UserName" placeholder="Username">
+		<input type="text" name="Email" placeholder="Email">
+		<input type="password" name="Password" placeholder="Password">
+		<input type="password" name="ConfirmPassword" placeholder="ConfirmPassword">
+		<p class="errormessage" id="RegistrationMess"></p>
+		<button type="submit" id="submit" class="log-in">Register</button><br>
+		<a href="/Account/SignIn" class="reg-now">Sign In</a>
+	</div>
+</div>
+
+
+<script src="~/Scripts/account.js"></script>

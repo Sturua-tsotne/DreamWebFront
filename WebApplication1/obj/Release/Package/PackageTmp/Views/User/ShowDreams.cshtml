@@ -1,0 +1,32 @@
+﻿@using WebApplication1.Models;
+
+
+
+
+@model  IList<DreamViewModel>
+
+
+@{
+	ViewBag.Title = "UserDreams";
+	//ViewBag.dreamsicon = "active";
+}
+
+
+<
+<div class="my-dreams font-bnm ">
+	<div class="my-dreams-t">
+		<h1>@ViewBag.username</h1>
+	</div>
+
+	<div class="my-dreams-b infinite-scroll">
+		@Html.Partial("_Dreams", (ViewBag.Dreams as Dictionary<int, DreamViewModel>))
+	</div>
+
+</div>
+
+<script src="~/Scripts/infiniteScroll.js"></script>
+<script type="text/javascript">
+
+    var moreRowsUrl = '@Url.RouteUrl("dreams")';
+    $(window).scroll(scrollHandler);
+</script>
