@@ -25,6 +25,9 @@ namespace WebApplication1.Controllers
 			{
 				var dreamCustom = new MapCustom()
 				{
+
+
+
 					ID = dream.ID,
 					Title = dream.Title,
 					Description = dream.Description,
